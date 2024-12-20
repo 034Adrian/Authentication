@@ -12,7 +12,11 @@ namespace Authentication.Api;
 
 public static class ServicesConfiguration
 {
-    // Global services
+    /// <summary>
+    /// Agrega los servicios a la api.
+    /// </summary>
+    /// <param name="services">Los servicios de la aplicacion.</param>
+    /// <returns>A scoped services.</returns>
     public static IServiceCollection AddApiServices(this IServiceCollection services)
     {
         services.AddScoped<ITokenService, TokenService>();
@@ -20,6 +24,12 @@ public static class ServicesConfiguration
         return services;
     }
 
+    /// <summary>
+    /// Selecciona el servicio de base de datos.
+    /// </summary>
+    /// <param name="services">Los servicios de la aplicacion.</param>
+    /// <param name="configuration">Las configuraciones de la aplicacion.</param>
+    /// <returns>Conexion a la base de datos.</returns>
     public static void ConfigureDatabase(this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment environment)
     {
         if (environment.IsDevelopment())
@@ -32,6 +42,10 @@ public static class ServicesConfiguration
         }
     }
 
+    /// <summary>
+    /// Configuracion de identity.
+    /// </summary>
+    /// <param name="services">Los servicios de la aplicacion.</param>
     public static void ConfigureIdentity(this IServiceCollection services)
     {
         services.AddIdentity<ApplicationUser, IdentityRole>(options =>
@@ -42,8 +56,18 @@ public static class ServicesConfiguration
         }).AddEntityFrameworkStores<ApplicationDbContext>();
     }
 
+    /// <summary>
+    /// Configuracion de Authentication.
+    /// </summary>
+    /// <param name="services">Los servicios de la aplicacion.</param>
+    /// <param name="configuration">Las configuraciones de la aplicacion.</param>
+    /// <returns>Define la configuracion de Authentication.</returns>
     public static void ConfigureAuthentication(this IServiceCollection services, IConfiguration configuration)
     {
+        var issuer = configuration["JWT:Issuer"];
+        var audience = configuration["JWT:Audience"];
+        var signinKey = configuration["JWT:SigninKey"];
+
         services.AddAuthentication(option =>
         {
             option.DefaultAuthenticateScheme =
@@ -58,12 +82,12 @@ public static class ServicesConfiguration
             option.TokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuer = true,
-                ValidIssuer = configuration["JWT:Issuer"],
+                ValidIssuer = issuer,
                 ValidateAudience = true,
-                ValidAudience = configuration["JWT:Audience"],
+                ValidAudience = audience,
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(
-                    Encoding.UTF8.GetBytes(configuration["JWT:SigninKey"])
+                    Encoding.UTF8.GetBytes(signinKey)
                 )
             };
         });

@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authentication.Api", "Server\Authentication.Api\Authentication.Api.csproj", "{502C8F7F-2808-4855-8AF8-04F7A6E39D77}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authentication.Web", "Web\Authentication.Web\Authentication.Web.csproj", "{B045B554-9AE8-48AF-938C-11D6004B49A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{502C8F7F-2808-4855-8AF8-04F7A6E39D77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{502C8F7F-2808-4855-8AF8-04F7A6E39D77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{502C8F7F-2808-4855-8AF8-04F7A6E39D77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B045B554-9AE8-48AF-938C-11D6004B49A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B045B554-9AE8-48AF-938C-11D6004B49A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B045B554-9AE8-48AF-938C-11D6004B49A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B045B554-9AE8-48AF-938C-11D6004B49A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
