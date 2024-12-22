@@ -1,0 +1,25 @@
+﻿@page "/login"
+@using Authentication.Web.DataTransferObjects.Identity
+@using Authentication.Web.Services
+@inject AuthService AuthService
+@inject NavigationManager Navigation
+
+<EditForm Model="loginModel" OnValidSubmit="HandleLogin">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputText @bind-Value="loginModel.UserName" placeholder="Username" />
+    <InputText @bind-Value="loginModel.Password" placeholder="Password" type="password" />
+
+    <button type="submit">Login</button>
+</EditForm>
+
+@code {
+    private LoginDto loginModel = new LoginDto();
+
+    private async Task HandleLogin()
+    {
+        var result = await AuthService.Login(loginModel);
+        Navigation.NavigateTo("/protected");
+    }
+}

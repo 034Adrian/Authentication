@@ -1,0 +1,27 @@
+﻿@page "/register"
+@using Authentication.Web.DataTransferObjects.Identity
+@using Authentication.Web.Services
+
+@inject AuthService AuthService
+@inject NavigationManager Navigation
+
+<EditForm Model="registerModel" OnValidSubmit="HandleRegister">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputText @bind-Value="registerModel.Username" placeholder="Username" />
+    <InputText @bind-Value="registerModel.Email" placeholder="Email" />
+    <InputText @bind-Value="registerModel.Password" placeholder="Password" type="password" />
+
+    <button type="submit">Register</button>
+</EditForm>
+
+@code {
+    private RegisterDto registerModel = new RegisterDto();
+
+    private async Task HandleRegister()
+    {
+        var result = await AuthService.Register(registerModel);
+        Navigation.NavigateTo("/");
+    }
+}
